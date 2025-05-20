@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import Dashboard from "./pages/Dashboard";
@@ -7,6 +7,8 @@ import Users from "./pages/Users";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { isAuthenticated, logout } from "./services/authService";
+import PropTypes from "prop-types";
+
 
 // Navbar
 const Navbar = ({ onLogout }) => {
@@ -22,11 +24,19 @@ const Navbar = ({ onLogout }) => {
     </AppBar>
   );
 };
+
+Navbar.propTypes = {
+  onLogout: PropTypes.func.isRequired
+};
+
 // Rutas privadas autenticadas
 const PrivateRoute = ({ element }) => {
   return isAuthenticated() ? element : <Navigate to="/login" />;
 };
 
+PrivateRoute.propTypes = {
+  element: PropTypes.node.isRequired
+};
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated());
 

@@ -25,7 +25,7 @@ const login = async (email, password) => {
     } else {
       return { success: false, message: data.message };
     }
-  } catch (error) {
+  } catch {
     return { success: false, message: "Error en la conexión con el servidor" };
   }
 };
@@ -45,7 +45,7 @@ const register = async (name, email, password) => {
     } else {
       return { success: false, message: data.message };
     }
-  } catch (error) {
+  } catch {
     return { success: false, message: "Error en la conexión con el servidor" };
   }
 };

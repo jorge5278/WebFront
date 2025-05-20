@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, TextField, Container, Typography, Alert, Box } from "@mui/material";
 import { login } from "../services/authService";
+import PropTypes from "prop-types";
+
 // Estados
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -35,5 +37,7 @@ const Login = ({ onLogin }) => {
     </Box>
   );
 };
-
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 export default Login;

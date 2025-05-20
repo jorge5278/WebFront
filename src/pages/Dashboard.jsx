@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Footer from "../components/Footer";
 import { Avatar, Container, Typography, Box, Button } from "@mui/material";
 import userImage from "../components/1.jpg"; 
 import bigImage from "../components/Graph.png"; 
+import PropTypes from "prop-types";
+
 
 const Dashboard = () => {
   const [count, setCount] = useState(0);
@@ -42,5 +44,10 @@ const CustomControl = ({ count, increment }) => (
     </Button>
   </Box>
 );
+Dashboard.propTypes = {
+  text: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+};
 
 export default Dashboard;
