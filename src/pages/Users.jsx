@@ -17,7 +17,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Box,
 } from "@mui/material";
 
 const Users = () => {
