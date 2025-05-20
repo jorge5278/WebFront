@@ -22,9 +22,9 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build      # <-- cambia aquí
+        run: npm run build
 
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel --prod --token $VERCEL_TOKEN
+        run: npx vercel --prod --confirm --token $VERCEL_TOKEN
