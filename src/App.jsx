@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
 import Users from "./pages/Users";
 import Login from "./pages/Login";
