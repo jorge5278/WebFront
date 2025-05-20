@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../services/usersService"; 
 import {
   Container,
   Typography,
@@ -11,13 +17,8 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Box,
 } from "@mui/material";
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "../services/UserService";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -195,16 +196,10 @@ const Users = () => {
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.rol}</TableCell>
                     <TableCell>
-                      <Button
-                        color="primary"
-                        onClick={() => handleEditClick(user)}
-                      >
+                      <Button color="primary" onClick={() => handleEditClick(user)}>
                         Editar
                       </Button>
-                      <Button
-                        color="error"
-                        onClick={() => handleDelete(user.id)}
-                      >
+                      <Button color="error" onClick={() => handleDelete(user.id)}>
                         Eliminar
                       </Button>
                     </TableCell>
