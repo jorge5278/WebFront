@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000/api";
+// Después: lee de la variable de entorno VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 const getToken = () => {
   const token = localStorage.getItem("token");
