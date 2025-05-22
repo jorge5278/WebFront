@@ -28,7 +28,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_URL: https://viba.azurewebsites.net/api
+            VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       # 5. Despliega a Azure Static Web Apps
       - name: Deploy to Azure Static Web App
