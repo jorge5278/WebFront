@@ -1,4 +1,4 @@
-name: Deploy to azure.
+name: Deploy Backend to Azure
 
 on:
   push:
@@ -6,41 +6,44 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
 
-      # 1. Clona el repo
+    steps:
+      # 1) Clonar el repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Configura Node.js (versión de tu proyecto)
+      # 2) Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
 
-      # 3. Instala dependencias y construye tu frontend
+      # 3) Instalar dependencias
       - name: Install dependencies
         run: npm ci
-        
+
+      # 4) Lint y tests
       - name: Lint code
         run: npm run lint
 
       - name: Run unit tests
         run: npm test
-        
-      - name: Build frontend
+
+      - name: Build project
         run: npm run build
 
-      # 4. Despliega a Azure Static Web Apps
-      - name: Deploy to Azure Static Web App
-        uses: Azure/static-web-apps-deploy@v1
+      # 6) Empaquetar backend en ZIP (excluye node_modules, .env y tests)
+      - name: Zip backend
+        run: |
+          rm -f backend.zip
+          zip -r backend.zip * .[^.]* -x "node_modules/*" ".env" "tests/*"
+
+      # 7) Desplegar con Publish Profile
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token:                             ${{ secrets.GITHUB_TOKEN }} # ya viene por defecto
-          action:                                 "upload"
-          #### Ajusta estas rutas si tu build sale a otro directorio ####
-          app_location:                           "/"       # carpeta raíz del front
-          api_location:                           ""        # si no tienes Azure Functions, déjalo vacío
-          output_location:                        "dist"    # donde Vite deja los archivos estáticos
+          app-name: 'viba'                               # tu nombre de App Service
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: 'backend.zip'
