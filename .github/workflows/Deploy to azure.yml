@@ -1,4 +1,4 @@
-name: Deploy to azure.
+name: Deploy to Azure Static Web Apps
 
 on:
   push:
@@ -20,24 +20,23 @@ jobs:
         with:
           node-version: '18.x'
 
-      # 3. Instala dependencias y construye tu frontend
+      # 3. Instala dependencias
       - name: Install dependencies
         run: npm ci
 
+      # 4. Construye el frontend
       - name: Build frontend
         run: npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-
-      # 4. Despliega a Azure Static Web Apps
+      # 5. Despliega a Azure Static Web Apps
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          repo_token:                             ${{ secrets.GITHUB_TOKEN }} # ya viene por defecto
-          action:                                 "upload"
-          #### Ajusta estas rutas si tu build sale a otro directorio ####
-          app_location:                           "/"       # carpeta raíz del front
-          api_location:                           ""        # si no tienes Azure Functions, déjalo vacío
-          output_location:                        "dist"    # donde Vite deja los archivos estáticos
+          repo_token:                       ${{ secrets.GITHUB_TOKEN }}
+          action:                           upload
+          app_location:                     /
+          api_location:                     ""
+          output_location:                  dist
