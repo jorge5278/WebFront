@@ -28,7 +28,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         env:
-          VITE_API_URL: https://webback-production-7057.up.railway.app/api
+          VITE_API_URL: "https://webback-production-7057.up.railway.app/api"
 
       # 5. Despliega a Azure Static Web Apps
       - name: Deploy to Azure Static Web App
