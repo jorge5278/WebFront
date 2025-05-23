@@ -8,29 +8,30 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    steps:
 
-      # 1. Clona el repo
+    # 1) exponemos el secret a TODO el job
+    env:
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Configura Node.js (versión de tu proyecto)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
 
-      # 3. Instala dependencias
       - name: Install dependencies
         run: npm ci
 
-      # 4. Construye el frontend
+      # OPCIONAL: para forzar que Vite lo lea como .env.production
+      - name: Create .env.production
+        run: echo "VITE_API_URL=$VITE_API_URL" > .env.production
+
       - name: Build frontend
         run: npm run build
-        env:
-          VITE_API_URL: "https://webback-production-7057.up.railway.app/api"
 
-      # 5. Despliega a Azure Static Web Apps
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
